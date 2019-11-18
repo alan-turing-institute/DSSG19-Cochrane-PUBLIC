@@ -1,0 +1,271 @@
+# seed for reproducibility
+seed: 2019
+
+# parameters to pull data to train models
+data_type: flat
+features_table: papers_features
+labels_table: papers_rgs_wide
+unique_id: recordid
+existing_features:
+  - tokens_no_stopwords
+  - tokens_baseline
+  - average_embeddings
+  - stemmed_tokens_nostop
+  - so
+  # - cited_sti
+  # - cited_childca
+  # - cited_neonatal
+  # - cited_back
+  # - cited_depressn
+  # - cited_movement
+  # - cited_preg
+  # - cited_menstr
+  # - cited_muskel
+  # - cited_epilepsy
+  # - cited_lungca
+  # - cited_infectn
+  # - cited_haematol
+  # - cited_dementia
+  # - cited_muskinj
+  # - cited_inj
+  # - cited_pvd
+  # - cited_sympt
+  # - cited_pubhlth
+  # - cited_liver
+  # - cited_oral
+  # - cited_eyes
+  # - cited_addictn
+  # - cited_compmed
+  # - cited_prostate
+  # - cited_skin
+  # - cited_stroke
+  # - cited_uppergi
+  # - cited_coloca
+  # - cited_wounds
+  # - cited_airways
+  # - cited_occhealth
+  # - cited_tobacco
+  # - cited_endoc
+  # - cited_vasc
+  # - cited_ent
+  # - cited_cf
+  # - cited_ms
+  # - cited_fertilreg
+  # - cited_neuromusc
+  # - cited_renal
+  # - cited_epoc
+  # - cited_commun
+  # - cited_gynaeca
+  # - cited_ari
+  # - cited_breastca
+  # - cited_emerg
+  # - cited_schiz
+  # - cited_hiv
+  # - cited_behav
+  # - cited_htn
+  # - cited_ibd
+  # - cited_incont
+  # - cited_anaesth
+  # - citations_available
+citations_cols:
+  - cited_sti
+  - cited_childca
+  - cited_neonatal
+  - cited_back
+  - cited_depressn
+  - cited_movement
+  - cited_preg
+  - cited_menstr
+  - cited_muskel
+  - cited_epilepsy
+  - cited_lungca
+  - cited_infectn
+  - cited_haematol
+  - cited_dementia
+  - cited_muskinj
+  - cited_inj
+  - cited_pvd
+  - cited_sympt
+  - cited_pubhlth
+  - cited_liver
+  - cited_oral
+  - cited_eyes
+  - cited_addictn
+  - cited_compmed
+  - cited_prostate
+  - cited_skin
+  - cited_stroke
+  - cited_uppergi
+  - cited_coloca
+  - cited_wounds
+  - cited_airways
+  - cited_occhealth
+  - cited_tobacco
+  - cited_endoc
+  - cited_vasc
+  - cited_ent
+  - cited_cf
+  - cited_ms
+  - cited_fertilreg
+  - cited_neuromusc
+  - cited_renal
+  - cited_epoc
+  - cited_commun
+  - cited_gynaeca
+  - cited_ari
+  - cited_breastca
+  - cited_emerg
+  - cited_schiz
+  - cited_hiv
+  - cited_behav
+  - cited_htn
+  - cited_ibd
+  - cited_incont
+  - cited_anaesth
+  - citations_available
+test_perc: 0.2
+condition: ~
+query: ~
+
+# evaluation
+results_table_name:
+  final_model_eval_citations
+metrics:
+  - precision_at_recall
+recalls:
+  - 0.0
+  - 0.1
+  - 0.2
+  - 0.3
+  - 0.4
+  - 0.5
+  - 0.6
+  - 0.7
+  - 0.8
+  - 0.9
+  - 0.91
+  - 0.92
+  - 0.93
+  - 0.94
+  - 0.95
+  - 0.96
+  - 0.97
+  - 0.98
+  - 0.99
+  - 1.0
+
+classes:
+  - COMPMED
+  - VASC
+  - SYMPT
+  - ORAL
+  - HTN
+  - DEPRESSN
+  - AIRWAYS
+  - UPPERGI
+  - RENAL
+  - ENT
+  - PREG
+  - EYES
+  - ANAESTH
+  - COLOCA
+  - EPOC
+  - LIVER
+  - MENSTR
+  - MUSKEL
+  - BEHAV
+  - COMMUN
+  - WOUNDS
+  - SKIN
+  - TOBACCO
+  - ADDICTN
+  - NEONATAL
+  - MUSKINJ
+  - SCHIZ
+  - BACK
+  - PVD
+  - STROKE
+  - GYNAECA
+  - HIV
+  - DEMENTIA
+  - ARI
+  - INJ
+  - INFECTN
+  - PROSTATE
+  - NEUROMUSC
+  - BREASTCA
+  - HAEMATOL
+  - ENDOC
+  - INCONT
+  - FERTILREG
+  - IBD
+  - CF
+  - LUNGCA
+  - EPILEPSY
+  - OCCHEALTH
+  - CHILDCA
+  - PUBHLTH
+  - STI
+  - EMERG
+  - MOVEMENT
+  - MS
+target: ~ # deprecated
+
+# set these according to review group preferences
+# accepted values = [0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.91,
+#                    0.92,0.93,0.94,0.95,0.96,0.97,0.98,0.99,1.0]
+review_groups_recall:
+    COMPMED: 0.95
+    VASC: 0.95
+    SYMPT: 0.95
+    ORAL: 0.95
+    HTN: 0.95
+    DEPRESSN: 0.95
+    AIRWAYS: 0.95
+    UPPERGI: 0.95
+    RENAL: 0.95
+    ENT: 0.95
+    PREG: 0.95
+    EYES: 0.95
+    ANAESTH: 0.95
+    COLOCA: 0.95
+    EPOC: 0.95
+    LIVER: 0.95
+    MENSTR: 0.95
+    MUSKEL: 0.95
+    BEHAV: 0.95
+    COMMUN: 0.95
+    WOUNDS: 0.95
+    SKIN: 0.95
+    TOBACCO: 0.95
+    ADDICTN: 0.95
+    NEONATAL: 0.95
+    MUSKINJ: 0.95
+    SCHIZ: 0.95
+    BACK: 0.95
+    PVD: 0.95
+    STROKE: 0.95
+    GYNAECA: 0.95
+    HIV: 0.95
+    DEMENTIA: 0.95
+    ARI: 0.95
+    INJ: 0.95
+    INFECTN: 0.95
+    PROSTATE: 0.95
+    NEUROMUSC: 0.95
+    BREASTCA: 0.95
+    HAEMATOL: 0.95
+    ENDOC: 0.95
+    INCONT: 0.95
+    FERTILREG: 0.95
+    IBD: 0.95
+    CF: 0.95
+    LUNGCA: 0.95
+    EPILEPSY: 0.95
+    OCCHEALTH: 0.95
+    CHILDCA: 0.95
+    PUBHLTH: 0.95
+    STI: 0.95
+    EMERG: 0.95
+    MOVEMENT: 0.95
+    MS: 0.95

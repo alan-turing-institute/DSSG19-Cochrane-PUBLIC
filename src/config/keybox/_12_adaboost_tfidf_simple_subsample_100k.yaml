@@ -1,0 +1,47 @@
+id:
+  12
+seed:
+  2019
+k_folds_seed:
+  100
+features_table:
+  papers_features
+labels_table:
+  papers_rgs_wide
+unique_id:
+  recordid
+data_type:
+  flat
+target:
+  inregister
+existing_features:
+  - tokens_no_stopwords
+generated_features:
+  ~
+model_type:
+  adaboost
+hyperparameters:
+
+  # TF-IDF
+  tfidf: [True]
+  tokens_col: ['tokens_no_stopwords']
+  ngram_range: [1]
+  token_pattern: [alpha]
+  max_vocab_f: [5000]
+
+  # AdaBoost
+  #base_estimator : we don't vary this yet but the thing that gets passed in is
+  #                 an sklearn object and I'm currently unsure how to pass this in here
+  #                 i.e. sklearn.tree.DecisionTreeClassifier(max_depth=1)
+  n_estimators: [50, 100, 1000]
+  learning_rate: [0.01, 0.1]
+  algorithm: ['SAMME', 'SAMME.R']
+
+query:
+  ~
+condition:
+  ' order by random() limit 100000 '
+train_neg_n:
+  ~
+test_perc:
+  0.2

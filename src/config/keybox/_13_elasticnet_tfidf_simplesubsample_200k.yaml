@@ -1,0 +1,37 @@
+id:
+  13
+seed:
+  2019
+k_folds_seed:
+  100
+features_table:
+  papers_features
+labels_table:
+  papers_rgs_wide
+unique_id:
+  recordid
+data_type:
+  flat
+target:
+  inregister
+existing_features:
+  - tokens_no_stopwords
+generated_features:
+  - vocab
+model_type:
+  elasticnet_nostop_simple
+hyperparameters:
+  alpha: [0.0001, 0.00001, 0.000001, 0.0000001]
+  l1_ratio: [0.2,0.4,0.6,0.8,1.0]
+  ngram_range: [1]
+  token_pattern: [alpha]
+  max_vocab_f: [10000]
+
+query:
+  ~
+condition:
+  " order by random() limit 200000 "
+train_neg_n:
+  ~
+test_perc:
+  0.2

@@ -1,0 +1,38 @@
+create table raw.annotations (
+RecordID varchar,
+RecordType varchar,
+TI varchar,
+AU varchar,
+SO varchar,
+YR varchar,
+PG varchar,
+AB varchar,
+AD varchar,
+CC varchar,
+DOI varchar,
+EM varchar,
+LA varchar,
+MC varchar,
+MH varchar,
+NO varchar,
+OT varchar,
+PM varchar,
+PT varchar,
+VL varchar,
+CentralID varchar,
+ISNCT varchar,
+TR varchar,
+INREGISTER varchar,
+CN varchar,
+SID varchar,
+SearchText varchar,
+CRG varchar,
+clean_title varchar,
+clean_abstract varchar,
+short_abstract varchar,
+short_title varchar,
+INCLUDE varchar);
+
+
+
+\copy papers from '/data/raw/papers/RecordNotNullPMID.txt' HEADER CSV DELIMITER E'\t';

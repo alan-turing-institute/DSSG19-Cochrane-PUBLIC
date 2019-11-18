@@ -1,0 +1,82 @@
+metrics:
+  - precision_at_recall
+classes:
+  - COMPMED
+  - VASC
+  - SYMPT
+  - ORAL
+  - HTN
+  - DEPRESSN
+  - AIRWAYS
+  - UPPERGI
+  - RENAL
+  - ENT
+  - PREG
+  - EYES
+  - ANAESTH
+  - COLOCA
+  - EPOC
+  - LIVER
+  - MENSTR
+  - MUSKEL
+  - BEHAV
+  - COMMUN
+  - WOUNDS
+  - SKIN
+  - TOBACCO
+  - ADDICTN
+  - NEONATAL
+  - MUSKINJ
+  - SCHIZ
+  - BACK
+  - PVD
+  - STROKE
+  - GYNAECA
+  - HIV
+  - DEMENTIA
+  - ARI
+  - INJ
+  - INFECTN
+  - PROSTATE
+  - NEUROMUSC
+  - BREASTCA
+  - HAEMATOL
+  - ENDOC
+  - INCONT
+  - FERTILREG
+  - IBD
+  - CF
+  - LUNGCA
+  - EPILEPSY
+  - OCCHEALTH
+  - CHILDCA
+  - PUBHLTH
+  - STI
+  - EMERG
+  - MOVEMENT
+  - MS
+results_table_name:
+  evaluate_rg
+k_folds:
+  5
+recalls:
+  - 0.0
+  - 0.1
+  - 0.2
+  - 0.3
+  - 0.4
+  - 0.5
+  - 0.6
+  - 0.7
+  - 0.8
+  - 0.9
+  - 0.91
+  - 0.92
+  - 0.93
+  - 0.94
+  - 0.95
+  - 0.96
+  - 0.97
+  - 0.98
+  - 0.99
+  - 1.0

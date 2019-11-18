@@ -1,0 +1,34 @@
+id:
+  18
+seed:
+  2019
+k_folds_seed:
+  100
+features_table:
+  papers_features
+labels_table:
+  papers_rgs_wide
+unique_id:
+  recordid
+data_type:
+  flat
+target:
+  inregister
+existing_features:
+  - average_embeddings
+generated_features:
+  ~
+model_type:
+  elasticnet_embeddings_pca
+hyperparameters:
+  alpha: [0.0001, 0.00001, 0.000001, 0.0000001]
+  l1_ratio: [0.2, 0.4, 0.6, 0.8, 1.0]
+  n_components: [0.5, 0.7, 0.9]
+query:
+  ~
+condition:
+  ~
+train_neg_n:
+  ~
+test_perc:
+  0.2

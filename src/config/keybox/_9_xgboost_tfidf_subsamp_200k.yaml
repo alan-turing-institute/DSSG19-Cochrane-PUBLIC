@@ -1,0 +1,54 @@
+id:
+  9
+seed:
+  2019
+k_folds_seed:
+  100
+features_table:
+  papers_features
+labels_table:
+  papers_rgs_wide
+unique_id:
+  recordid
+data_type:
+  flat
+target:
+  inregister
+existing_features:
+  - tokens_no_stopwords
+generated_features:
+  ~
+model_type:
+  xgboost
+hyperparameters:
+
+  tfidf: [True]
+
+  tokens_col: ['tokens_no_stopwords']
+
+  nthread: [8]
+
+  learning_rate: [0.1,0.01,0.001]
+
+  max_depth: [6]
+
+  subsample: [0.5]
+
+  n_estimators: [100,500]
+
+  objective: ['binary:logistic']
+
+  gamma: [0]
+
+  l1: [0]
+
+  l2: [1]
+
+query:
+  ~
+condition:
+  " order by random() limit 200000 "
+train_neg_n:
+  ~
+test_perc:
+  0.2

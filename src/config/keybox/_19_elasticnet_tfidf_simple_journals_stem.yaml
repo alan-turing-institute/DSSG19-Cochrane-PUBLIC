@@ -1,0 +1,38 @@
+id:
+  19
+seed:
+  2019
+k_folds_seed:
+  100
+features_table:
+  papers_features
+labels_table:
+  papers_rgs_wide
+unique_id:
+  recordid
+data_type:
+  flat
+target:
+  inregister
+existing_features:
+  - stemmed_tokens_nostop
+  - so
+generated_features:
+  - vocab
+model_type:
+  elasticnet_nostop_simple_journals_stemmed
+hyperparameters:
+  alpha: [0.00001, 0.000001, 0.0000001]
+  l1_ratio: [0.2,0.4,0.6,0.8,1.0]
+  ngram_range: [1]
+  token_pattern: [alpha]
+  max_vocab_f: [5000, 10000, 25000]
+
+query:
+  ~
+condition:
+  ~
+train_neg_n:
+  ~
+test_perc:
+  0.2

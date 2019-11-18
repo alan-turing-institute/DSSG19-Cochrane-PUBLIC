@@ -1,0 +1,131 @@
+#load dependencies
+library(tidyverse)
+
+#parameters
+#all time parameters in hours
+n_studies = 50000
+n_rg = 53
+n_reviews = 8000 #the number of reviews 
+time_to_screen_study = 0.05 #time to look at and classify study 
+admin_tasks = 0.001 #time to scape basic information from paper, push to  CRS or deduplicate
+time_to_eval_study = 0.5 #time for a review member to review study
+time_to_pub = 40
+
+#creating data objects
+actors = c("Cochrane Crowd", "CRG", "Review Member", "Automated")
+pipelines = c("Old", "New", "Future")
+tasks = c("Search Papers", "Scrape Papers", "Upload to CRS", "CRS - Dedup", "Classify - RCT", "Classify - RG", 
+          "Classify - PICO", "Classify - Rev", "Evaluate Rev", "Publish Rev")
+baseline_task_hours = c(sum(rexp(n_studies, 1/time_to_screen_study)),
+                        admin_tasks*n_studies,
+                        admin_tasks*n_studies, 
+                        admin_tasks*n_studies, 
+                        sum(rexp(n_studies, 1/time_to_screen_study)),
+                        sum(rexp(n_studies, 1/time_to_screen_study)),
+                        sum(rexp(n_studies/n_rg, 1/time_to_eval_study)),
+                        sum(rexp(n_studies/n_rg, 1/time_to_eval_study)),
+                        sum(rexp(n_studies/n_reviews, 1/time_to_eval_study)),
+                        time_to_pub)
+baseline_task_hours = as.data.frame(cbind("Task"=tasks, "Hours"=baseline_task_hours))
+#these are all in rows by tasks and split in order of CC, CRG, RM, and A three times by Old, New and Future
+prop = c(0,1,0,0,0.5,0.5,0,0,0.5,0,0,0.5, #classify pico
+                0,1,0,0,0.75,0.15,0,0.1,0.75,0,0,1, #classify rct
+                0,0.1,0.9,0,0,0.2,0.8,0,0.25,0.25,0.25,0.25, #classify rev 
+                0,1,0,0,0,0.9,0,0.1,0.1,0.25,0,0.65, #classify rg
+                0,1,0,0,0,0,0,1,0,0,0,1, #crs dedup
+                0,0,1,0,0,0,1,0,0,0,1,0, #evaluate rev
+                0,0,1,0,0,0,1,0,0,0,1,0, #publish rev
+                0,0.5,0.5,0,0,0.5,0.3,0.2,0,0.1,0.1,0.8, #scrape papers
+                0,0.5,0.5,0,0,0.5,0.3,0.2,0,0.2,0.2,0.6, #search papers
+                0,0.7,0.3,0,0,0.5,0.1,0.4,0,0.3,0.1,0.6) #upload to crs
+
+#final dataset
+data = expand.grid(actors, pipelines, tasks) %>%
+  set_names(c("Actor", "Pipeline", "Task")) %>%
+  merge(baseline_task_hours, by="Task") %>%
+  mutate(Hours = as.numeric(as.character(Hours))) %>%
+  cbind("prop_change"=prop) %>%
+  mutate(Hours = Hours * prop_change) %>%
+  select(-prop_change)
+
+data = aggregate(data$Hours, by=list(data$Actor, data$Pipeline), FUN=sum) %>%
+  set_names("Actor", "Pipeline", "Hours") %>%
+  cbind("Task" = "Total") %>%
+  rbind(data) %>% mutate(Hours = as.integer(Hours)) %>%
+  mutate(Time = case_when(
+    Hours <= 1 ~ "<= 1 Hour",
+    Hours > 1 & Hours <=8 ~ "<= 1 Day",
+    Hours > 8 & Hours <=40 ~ "<= 1 Week",
+    Hours > 40 & Hours <=160 ~ "<= 1 Month",
+    Hours > 160 & Hours <=960 ~ "<= 6 Months",
+    Hours > 960 & Hours <=1920 ~ "<= 1 Year",
+    T ~ "> 1 Year"
+  )) %>%
+  mutate(Time = factor(Time, levels = c("<= 1 Hour","<= 1 Day","<= 1 Week","<= 1 Month",
+                                         "<= 6 Months","<= 1 Year","> 1 Year"))) %>%
+  mutate(Actor = factor(Actor, levels = rev(actors[c(3,2,1,4)])))
+
+
+#visualize work burden by members facet wrap
+ggplot(data,aes(Task, Actor)) + 
+  geom_tile(aes(fill=Time), color="black") +
+  #geom_text(aes(label=as.character(Time)), subset(data, Task=="Total"), size = 3) +
+  geom_tile(aes(fill=Time),data=subset(data, Task == "Total"), color="black", size=1)+
+  facet_grid(Pipeline~.) +
+  scale_x_discrete(limits = c(tasks, "Total")) +
+  #scale_fill_brewer(palette="PuRd", direction=1)+
+  scale_fill_viridis_d(alpha=0.8) +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle=45, hjust=1, face=c(rep("plain",10),"bold"))) +
+  labs(fill="Person Hours")
+ggsave("/data/figs/pres/vis_work_burden.png", width = 8, height = 4, units = "in", dpi = 300)
+
+#old
+subset(data, Pipeline == "Old") %>%
+  ggplot(aes(Task, Actor)) + 
+  geom_tile(aes(fill=Time), color="black") +
+  #geom_text(aes(label=as.character(Time)), subset(data, Task=="Total"), size = 3) +
+  geom_tile(aes(fill=Time),data=subset(data, Task == "Total" & Pipeline == "Old"), color="black", size=1)+
+  #facet_grid(Pipeline~.) +
+  scale_x_discrete(limits = c(tasks, "Total")) +
+  scale_fill_brewer(palette="Blues", direction=1)+
+  #scale_fill_viridis_d(alpha=0.8) +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle=45, hjust=1, face=c(rep("plain",10),"bold"))) +
+  labs(fill="Person Hours") +
+  ggtitle("Old")
+ggsave("vis_work_burden1.png", width = 8, height = 4, units = "in", dpi = 300)
+
+#new
+subset(data, Pipeline == "New") %>%
+  ggplot(aes(Task, Actor)) + 
+  geom_tile(aes(fill=Time), color="black") +
+  #geom_text(aes(label=as.character(Time)), subset(data, Task=="Total"), size = 3) +
+  geom_tile(aes(fill=Time),data=subset(data, Task == "Total" & Pipeline == "New"), color="black", size=1)+
+  #facet_grid(Pipeline~.) +
+  scale_x_discrete(limits = c(tasks, "Total")) +
+  scale_fill_brewer(palette="Blues", direction=1)+
+  #scale_fill_viridis_d(alpha=0.8) +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle=45, hjust=1, face=c(rep("plain",10),"bold"))) +
+  labs(fill="Person Hours") + 
+  ggtitle("New")
+ggsave("vis_work_burden2.png", width = 8, height = 4, units = "in", dpi = 300)
+
+
+#Future
+subset(data, Pipeline == "Future") %>%
+  ggplot(aes(Task, Actor)) + 
+  geom_tile(aes(fill=Time), color="black") +
+  #geom_text(aes(label=as.character(Time)), subset(data, Task=="Total"), size = 3) +
+  geom_tile(aes(fill=Time),data=subset(data, Task == "Total" & Pipeline == "Future"), color="black", size=1)+
+  #facet_grid(Pipeline~.) +
+  scale_x_discrete(limits = c(tasks, "Total")) +
+  scale_fill_brewer(palette="Blues", direction=1)+
+  #scale_fill_viridis_d(alpha=0.8) +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle=45, hjust=1, face=c(rep("plain",10),"bold"))) +
+  labs(fill="Person Hours") +
+  ggtitle("Future")
+ggsave("vis_work_burden3.png", width = 8, height = 4, units = "in", dpi = 300)
+

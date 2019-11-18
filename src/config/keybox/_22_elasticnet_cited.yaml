@@ -1,0 +1,143 @@
+id:
+  22
+seed:
+  2019
+k_folds_seed:
+  100
+features_table:
+  papers_features
+labels_table:
+  papers_rgs_wide
+unique_id:
+  recordid
+data_type:
+  flat
+target:
+  ~
+existing_features:
+  - cited_sti
+  - cited_childca
+  - cited_neonatal
+  - cited_back
+  - cited_depressn
+  - cited_movement
+  - cited_preg
+  - cited_menstr
+  - cited_muskel
+  - cited_epilepsy
+  - cited_lungca
+  - cited_infectn
+  - cited_haematol
+  - cited_dementia
+  - cited_muskinj
+  - cited_inj
+  - cited_pvd
+  - cited_sympt
+  - cited_pubhlth
+  - cited_liver
+  - cited_oral
+  - cited_eyes
+  - cited_addictn
+  - cited_compmed
+  - cited_prostate
+  - cited_skin
+  - cited_stroke
+  - cited_uppergi
+  - cited_coloca
+  - cited_wounds
+  - cited_airways
+  - cited_occhealth
+  - cited_tobacco
+  - cited_endoc
+  - cited_vasc
+  - cited_ent
+  - cited_cf
+  - cited_ms
+  - cited_fertilreg
+  - cited_neuromusc
+  - cited_renal
+  - cited_epoc
+  - cited_commun
+  - cited_gynaeca
+  - cited_ari
+  - cited_breastca
+  - cited_emerg
+  - cited_schiz
+  - cited_hiv
+  - cited_behav
+  - cited_htn
+  - cited_ibd
+  - cited_incont
+  - cited_anaesth
+  - citations_available
+citations_cols:
+  - cited_sti
+  - cited_childca
+  - cited_neonatal
+  - cited_back
+  - cited_depressn
+  - cited_movement
+  - cited_preg
+  - cited_menstr
+  - cited_muskel
+  - cited_epilepsy
+  - cited_lungca
+  - cited_infectn
+  - cited_haematol
+  - cited_dementia
+  - cited_muskinj
+  - cited_inj
+  - cited_pvd
+  - cited_sympt
+  - cited_pubhlth
+  - cited_liver
+  - cited_oral
+  - cited_eyes
+  - cited_addictn
+  - cited_compmed
+  - cited_prostate
+  - cited_skin
+  - cited_stroke
+  - cited_uppergi
+  - cited_coloca
+  - cited_wounds
+  - cited_airways
+  - cited_occhealth
+  - cited_tobacco
+  - cited_endoc
+  - cited_vasc
+  - cited_ent
+  - cited_cf
+  - cited_ms
+  - cited_fertilreg
+  - cited_neuromusc
+  - cited_renal
+  - cited_epoc
+  - cited_commun
+  - cited_gynaeca
+  - cited_ari
+  - cited_breastca
+  - cited_emerg
+  - cited_schiz
+  - cited_hiv
+  - cited_behav
+  - cited_htn
+  - cited_ibd
+  - cited_incont
+  - cited_anaesth
+  - citations_available
+generated_features:
+  ~
+model_type:
+  elasticnet_cited
+hyperparameters:
+  alpha: [0.00001, 0.000001, 0.0000001]
+  l1_ratio: [0.2,0.4,0.6,0.8,1.0]
+query:
+  ~
+condition:
+  ~
+train_neg_n:
+  ~
+test_perc:
+  0.2

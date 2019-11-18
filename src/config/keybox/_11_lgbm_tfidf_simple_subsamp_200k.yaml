@@ -1,0 +1,62 @@
+id:
+  11
+seed:
+  2019
+k_folds_seed:
+  100
+features_table:
+  papers_features
+labels_table:
+  papers_rgs_wide
+unique_id:
+  recordid
+data_type:
+  flat
+target:
+  inregister
+existing_features:
+  - tokens_no_stopwords
+generated_features:
+  ~
+model_type:
+  lgbm
+hyperparameters:
+
+  tfidf: [True]
+
+  tokens_col: ['tokens_no_stopwords']
+
+  task: ['train']
+
+  application: ['binary']
+
+  num_iterations: [100]
+
+  num_leaves: [31, 200, 500]
+
+  device: ['cpu']
+
+  min_data_in_leaf: [20]
+
+  feature_fraction: [1]
+
+  bagging_fraction: [1]
+
+  min_gain_to_split: [0.1]
+
+  num_threads: [6]
+
+  max_depth: [5,10,80]
+
+  ngram_range: [1]
+  token_pattern: [alpha]
+  max_vocab_f: [5000, 10000, 25000]
+
+query:
+  ~
+condition:
+  " order by random() limit 200000 "
+train_neg_n:
+  ~
+test_perc:
+  0.2

@@ -1,0 +1,38 @@
+id:
+  0
+seed:
+  2019
+k_folds_seed:
+  100
+table_name:
+  papers
+ref_table:
+  ~
+label_table:
+  ~
+unique_id:
+  ~
+data_type:
+  flat
+target:
+  inregister
+existing_features:
+  - recordid
+  - ti
+  - ab
+generated_features:
+  ~
+model_type:
+  dummy
+hyperparameters:
+  {}
+query:
+  select * from semantic.papers left join semantic.papers_rgs on semantic.papers.recordid = semantic.papers_rgs.recordid where inregister not in ('STD','');
+results_table_name:
+  ~
+train_neg_n:
+  ~
+test_perc:
+  ~
+condition:
+  ~

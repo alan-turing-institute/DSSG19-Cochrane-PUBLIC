@@ -1,0 +1,18 @@
+pgpass_path: /.../.pgpass
+reviews_dir: /.../ # include trailing /
+citations: /.../______.csv
+recordid_paperid: /.../_____.csv
+ignition_path: /.../DSSG19-Cochrane/src/config/keybox/
+store_train_data: /... # no trailing /
+store_test_data: /... # no trailing /
+store_misc: /... # no trailing /
+store_models: /... # no trailing /
+store_preds: /... # no trailing /
+store_visualizations: /... # no trailing /
+word2vec_model: /.../PubMed-and-PMC-w2v.bin
+store_features: /.../features_table.pkl
+store_features_citations_only: /.../citations_features_table.pkl
+store_production_models: /... # no trailing /
+temp: /.../ # location of data for heatmap; include trailing /
+store_scored_papers: /... # no trailing /
+store_test_for_scoring: /... # no trailing /
